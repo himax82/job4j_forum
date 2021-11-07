@@ -27,7 +27,6 @@ public class PostControl {
 
     @GetMapping("/post/edit")
     public String edit(@RequestParam int id, Model model) {
-        model.addAttribute("user", mem.findByUsername("user"));
         model.addAttribute("post", mem.findPostById(id));
         return "post/edit";
     }

@@ -1,5 +1,6 @@
 package ru.job4j.forum.repository;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.forum.model.Authority;
 import ru.job4j.forum.model.Comment;
 import ru.job4j.forum.model.Post;
@@ -9,6 +10,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+@Repository
 public class ForumMem {
 
     private final Map<Integer, Authority> authorities = new HashMap<>();

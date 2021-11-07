@@ -17,7 +17,6 @@ public class IndexControl {
 
     @GetMapping({"/", "/index"})
     public String index(Model model) {
-        model.addAttribute("user", mem.findByUsername("user"));
         model.addAttribute("posts", mem.findAllPost());
         return "index";
     }
