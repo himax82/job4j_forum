@@ -23,7 +23,7 @@
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="<c:url value="/index"/>">Форум</a></li>
             <li class="nav-item"><a class="nav-link" href="<c:url value="/post/create"/>">Новая тема</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><c:out value="${user.username}"/></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><c:out value="${user}"/></a></li>
             <li class="nav-item"><a class="nav-link" href="<c:url value="/logout"/>">Выход</a></li>
         </ul>
     </div>
@@ -35,14 +35,14 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="<c:url value="/post/save?id=${post.id}"/>" method="POST">
+            <form action="<c:url value="/post/save"/>" method="POST">
                 <div class="form-group">
                     <label for="name">Название:</label>
-                    <input type="text" class="form-control" id="name" name="name" value="${post.name}" required>
+                    <input type="text" class="form-control" id="name" name="name" required>
                 </div>
                 <div class="form-group">
                     <label for="description">Описание:</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" required>${post.description}</textarea>
+                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-dark">Сохранить</button>
             </form>

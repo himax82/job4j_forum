@@ -36,7 +36,7 @@
     <div class="row justify-content-end">
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="<c:url value="/index"/>">Форум</a></li>
-            <li class="nav-item"><a class="nav-link" href="<c:url value="/post/edit"/>">Новая тема</a></li>
+            <li class="nav-item"><a class="nav-link" href="<c:url value="/post/create"/>">Новая тема</a></li>
             <li class="nav-item"><a class="nav-link" href="#"><c:out value="${user.username}"/></a></li>
             <li class="nav-item"><a class="nav-link" href="<c:url value="/logout"/>">Выход</a></li>
         </ul>
@@ -71,14 +71,24 @@
             </tbody>
         </table>
     </div>
+    <c:if test="${user != null}">
         <div class="row">
+            <form id="btnForm" style="width: 100%">
+                <button type="button" class="btn btn-dark pull-left" onclick="reply()">Ответить</button>
+                <c:if test="${user.equals(post.author)}">
+                    <input type="hidden" name="id" value="<c:out value='${post.id}'/>">
+                    <button type="submit" class="btn btn-dark pull-right ml-2" formaction="<c:url value='/post/edit'/>"
+                            formmethod="GET">Редактировать тему</button>
+                </c:if>
+            </form>
             <form id="replyForm" style="width: 100%" action="<c:url value="/comment/save?postId=${post.id}"/>" method="POST" hidden>
                 <div class="form-group">
-                    <textarea class="form-control" id="comment" name="text"></textarea>
+                    <textarea class="form-control" id="comment" name="text" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-dark pull-left">Отправить</button>
             </form>
         </div>
+    </c:if>
 </div>
 </body>
 </html>
