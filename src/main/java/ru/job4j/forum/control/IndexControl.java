@@ -4,20 +4,20 @@ package ru.job4j.forum.control;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.job4j.forum.repository.ForumMem;
+import ru.job4j.forum.service.PostService;
 
 @Controller
 public class IndexControl {
 
-    private final ForumMem mem;
+    private final PostService postService;
 
-    public IndexControl(ForumMem mem) {
-        this.mem = mem;
+    public IndexControl(PostService postService) {
+        this.postService = postService;
     }
 
     @GetMapping({"/", "/index"})
     public String index(Model model) {
-        model.addAttribute("posts", mem.findAllPost());
+        model.addAttribute("posts", postService.findAll());
         return "index";
     }
 }

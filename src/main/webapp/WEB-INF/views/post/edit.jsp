@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="card-body">
-            <form action="<c:url value="/post/save?id=${post.id}"/>" method="POST">
+            <form action="<c:url value="/post/update?id=${post.id}"/>" method="POST">
                 <div class="form-group">
                     <label for="name">Название:</label>
                     <input type="text" class="form-control" id="name" name="name" value="${post.name}" required>

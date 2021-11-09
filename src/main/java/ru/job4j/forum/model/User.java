@@ -1,17 +1,32 @@
 package ru.job4j.forum.model;
 
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
     private String password;
 
+    @Column
+    @ColumnDefault("true")
     private boolean enabled;
 
+    @ManyToOne
+    @JoinColumn(name = "authority_id", nullable = false)
     private Authority authority;
 
     public static User of(String username, String password, Authority authority) {

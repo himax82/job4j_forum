@@ -10,7 +10,6 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
-@Repository
 public class ForumMem {
 
     private final Map<Integer, Authority> authorities = new HashMap<>();

@@ -6,25 +6,29 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.forum.model.User;
-import ru.job4j.forum.repository.ForumMem;
+import ru.job4j.forum.service.AuthorityService;
+import ru.job4j.forum.service.UserService;
 
 @Controller
 public class RegControl {
 
-    private final ForumMem mem;
+    private final UserService userService;
 
-    public RegControl(ForumMem mem) {
-        this.mem = mem;
+    private final AuthorityService authorityService;
+
+    public RegControl(UserService userService, AuthorityService authorityService) {
+        this.userService = userService;
+        this.authorityService = authorityService;
     }
 
     @PostMapping("/reg")
     public String regSave(@ModelAttribute User user, Model model) {
-        if (mem.existsByUsername(user.getUsername())) {
-            model.addAttribute("errorMessage", "Такой пользователь уже существует.");
+        if (userService.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("errorMessage", "Пользователь с таким именем уже существует!");
             return regPage();
         }
-        user.setAuthority(mem.findByName("ROLE_USER"));
-        mem.save(user);
+        user.setAuthority(authorityService.findByName("ROLE_USER"));
+        userService.save(user);
         return "redirect:/login";
     }
 
