@@ -1,5 +1,6 @@
 package ru.job4j.forum.control;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +17,12 @@ public class RegControl {
 
     private final AuthorityService authorityService;
 
-    public RegControl(UserService userService, AuthorityService authorityService) {
+    private final PasswordEncoder encoder;
+
+    public RegControl(UserService userService, AuthorityService authorityService, PasswordEncoder encoder) {
         this.userService = userService;
         this.authorityService = authorityService;
+        this.encoder = encoder;
     }
 
     @PostMapping("/reg")
@@ -27,7 +31,9 @@ public class RegControl {
             model.addAttribute("errorMessage", "Пользователь с таким именем уже существует!");
             return regPage();
         }
+        user.setPassword(encoder.encode(user.getPassword()));
         user.setAuthority(authorityService.findByName("ROLE_USER"));
+        user.setEnabled(true);
         userService.save(user);
         return "redirect:/login";
     }

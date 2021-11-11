@@ -1,7 +1,6 @@
 package ru.job4j.forum.service;
 
 import org.springframework.stereotype.Service;
-import ru.job4j.forum.model.Post;
 import ru.job4j.forum.model.User;
 import ru.job4j.forum.repository.UserRepository;
 

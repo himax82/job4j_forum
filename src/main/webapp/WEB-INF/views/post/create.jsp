@@ -23,7 +23,7 @@
         <ul class="nav">
             <li class="nav-item"><a class="nav-link" href="<c:url value="/index"/>">Форум</a></li>
             <li class="nav-item"><a class="nav-link" href="<c:url value="/post/create"/>">Новая тема</a></li>
-            <li class="nav-item"><a class="nav-link" href="#"><c:out value="${user}"/></a></li>
+            <li class="nav-item"><a class="nav-link" href="#"><c:out value="${user.username}"/></a></li>
             <li class="nav-item"><a class="nav-link" href="<c:url value="/logout"/>">Выход</a></li>
         </ul>
     </div>

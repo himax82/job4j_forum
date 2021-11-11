@@ -1,9 +1,5 @@
 package ru.job4j.forum.model;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -21,8 +17,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column
-    @ColumnDefault("true")
     private boolean enabled;
 
     @ManyToOne

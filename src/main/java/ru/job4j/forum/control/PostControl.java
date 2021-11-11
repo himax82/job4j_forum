@@ -1,5 +1,7 @@
 package ru.job4j.forum.control;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,20 +28,20 @@ public class PostControl {
 
     @GetMapping("/post")
     public String post(@RequestParam int id, Model model) {
-        model.addAttribute("user", userService.findByUsername("user"));
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("post", postService.findPostById(id));
         return "post";
     }
 
     @GetMapping("/post/create")
     public String create(Model model) {
-        model.addAttribute("user", userService.findByUsername("user"));
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return "post/create";
     }
 
     @GetMapping("/post/edit")
     public String edit(@RequestParam int id, Model model) {
-        model.addAttribute("user", userService.findByUsername("user"));
+        model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         model.addAttribute("post", postService.findPostById(id));
         return "post/edit";
     }
@@ -47,14 +49,18 @@ public class PostControl {
     @PostMapping("/post/update")
     public String update(@ModelAttribute Post post) {
         post.setCreated(Calendar.getInstance());
-        post.setAuthor(userService.findByUsername("user"));
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getName();
+        post.setAuthor(userService.findByUsername(username));
         postService.savePost(post);
         return "redirect:/index";
     }
 
     @PostMapping("/post/save")
     public String save(@ModelAttribute Post post) {
-        post.setAuthor(userService.findByUsername("user"));
+        Authentication loggedInUser = SecurityContextHolder.getContext().getAuthentication();
+        String username = loggedInUser.getName();
+        post.setAuthor(userService.findByUsername(username));
         postService.savePost(post);
         return "redirect:/post?id=" + post.getId();
     }

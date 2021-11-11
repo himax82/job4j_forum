@@ -12,6 +12,11 @@
     <title>Авторизация</title>
 </head>
 <body>
+<c:if test="${not empty errorMessge}">
+    <div style="color:red; font-weight: bold; margin: 30px 0px;">
+            ${errorMessge}
+    </div>
+</c:if>
 <div class="container pt-3">
     <div class="row">
         <div class="card" style="width: 100%">
@@ -31,11 +36,6 @@
                     <button type="submit" class="btn btn-primary pull-left" name="submit">Войти</button>
                     <button type="submit" class="btn btn-light pull-right m1-2" formaction="<c:url value='/reg'/>"
                             formmethod="GET" formnovalidate>Регистрация</button>
-                    <c:if test="${not empty errorMessage}">
-                        <div style="color:red; font-weight: bold; margin: 30px 0px;">
-                                ${errorMessage}
-                        </div>
-                    </c:if>
                     <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
                 </form>
             </div>

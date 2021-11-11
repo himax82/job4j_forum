@@ -11,17 +11,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" ></script>
     <script>
         function reply() {
             $('#btnForm').attr('hidden', true);
             $('#replyForm').attr('hidden', false);
-        }
-        function cancel() {
-            $('#comment').val('');
-            $('#btnForm').attr('hidden', false);
-            $('#replyForm').attr('hidden', true);
         }
     </script>
 
@@ -75,7 +69,7 @@
         <div class="row">
             <form id="btnForm" style="width: 100%">
                 <button type="button" class="btn btn-dark pull-left" onclick="reply()">Ответить</button>
-                <c:if test="${user.equals(post.author)}">
+                <c:if test="${user.username.equals(post.author.username)}">
                     <input type="hidden" name="id" value="<c:out value='${post.id}'/>">
                     <button type="submit" class="btn btn-dark pull-right ml-2" formaction="<c:url value='/post/edit'/>"
                             formmethod="GET">Редактировать тему</button>
