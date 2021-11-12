@@ -11,10 +11,6 @@ CREATE TABLE users(
     authority_id INT NOT NULL REFERENCES authorities(id)
 );
 
-INSERT INTO authorities (name) VALUES ('ROLE_USER');
-INSERT INTO authorities (name) VALUES ('ROLE_ADMIN');
-
-
 CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
