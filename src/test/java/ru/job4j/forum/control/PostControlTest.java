@@ -1,13 +1,17 @@
 package ru.job4j.forum.control;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.*;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
 
+import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,5 +75,30 @@ public class PostControlTest {
                         hasProperty("name", is("name_edit"))))
                 .andExpect(model().attribute("post",
                         hasProperty("description", is("description_edit"))));
+    }
+
+    @Test
+    @WithMockUser
+    public void whenSavePostShouldReturnDefaultMessage() throws Exception {
+        this.mockMvc.perform(post("/post/save")
+                        .param("name","Куплю ладу-грант. Дорого."))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection());
+        ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
+        verify(postService).savePost(argument.capture());
+        assertThat(argument.getValue().getName(), is("Куплю ладу-грант. Дорого."));
+    }
+
+    @Test
+    @WithMockUser
+    public void whenEditPostShouldReturnDefaultMessage() throws Exception {
+        this.mockMvc.perform(post("/post/update")
+                        .param("name","Продам ладу-гранту. Дешево."))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/index"));
+        ArgumentCaptor<Post> argument = ArgumentCaptor.forClass(Post.class);
+        verify(postService).savePost(argument.capture());
+        assertThat(argument.getValue().getName(), is("Продам ладу-гранту. Дешево."));
     }
 }
