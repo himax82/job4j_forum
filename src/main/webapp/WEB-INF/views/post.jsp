@@ -72,7 +72,7 @@
                 <c:if test="${user.username.equals(post.author.username)}">
                     <input type="hidden" name="id" value="<c:out value='${post.id}'/>">
                     <button type="submit" class="btn btn-dark pull-right ml-2" formaction="<c:url value='/post/edit'/>"
-                            formmethod="GET">Редактировать тему</button>
+                            formmethod="GET">Изменить тему</button>
                 </c:if>
             </form>
             <form id="replyForm" style="width: 100%" action="<c:url value="/comment/save?postId=${post.id}"/>" method="POST" hidden>
