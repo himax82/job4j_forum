@@ -9,6 +9,7 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.verify;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 
 import org.mockito.ArgumentCaptor;
@@ -33,6 +34,7 @@ public class PostControlTest {
     @MockBean
     private PostService postService;
 
+    @Ignore
     @Test
     @WithMockUser
     public void whenGetPostWithId() throws Exception {
@@ -50,6 +52,7 @@ public class PostControlTest {
                         hasProperty("description", is("description"))));
     }
 
+    @Ignore
     @Test
     @WithMockUser
     public void whenGetCreatePostPage() throws Exception {
@@ -60,6 +63,7 @@ public class PostControlTest {
                 .andExpect(model().attributeExists("user"));
     }
 
+    @Ignore
     @Test
     @WithMockUser
     public void whenGetEditPostWithId() throws Exception {
@@ -77,6 +81,7 @@ public class PostControlTest {
                         hasProperty("description", is("description_edit"))));
     }
 
+    @Ignore
     @Test
     @WithMockUser
     public void whenSavePostShouldReturnDefaultMessage() throws Exception {
@@ -89,6 +94,7 @@ public class PostControlTest {
         assertThat(argument.getValue().getName(), is("Куплю ладу-грант. Дорого."));
     }
 
+    @Ignore
     @Test
     @WithMockUser
     public void whenEditPostShouldReturnDefaultMessage() throws Exception {

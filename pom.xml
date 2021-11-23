@@ -93,6 +93,10 @@
     </dependency>
   </dependencies>
 
+  <properties>
+    <spring.profiles.active>local,no-liquibase</spring.profiles.active>
+  </properties>
+
   <build>
     <plugins>
       <plugin>

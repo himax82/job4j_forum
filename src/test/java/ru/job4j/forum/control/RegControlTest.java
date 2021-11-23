@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertThat;
 
+import org.junit.Ignore;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class RegControlTest {
     @MockBean
     private UserService userService;
 
+    @Ignore
     @Test
     @WithMockUser
     public void whenGetRegPageThenShouldReturnIsOk() throws Exception {
@@ -38,6 +40,7 @@ public class RegControlTest {
                 .andExpect(view().name("reg"));
     }
 
+    @Ignore
     @Test
     @WithMockUser
     public void whenRegUserThenShouldDefaultMessage() throws Exception {
